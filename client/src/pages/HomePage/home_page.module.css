@@ -1,0 +1,10 @@
+@custom-selector :--heading h1, h2, h3;
+
+.test {
+
+    :--heading {
+        color: blue;
+    }
+}
+
+
