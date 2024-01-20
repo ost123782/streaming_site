@@ -1,0 +1,18 @@
+.header {
+    @apply flex justify-between;
+
+    * {
+        @apply flex
+    }
+
+    .header__burger {
+        @apply hidden;
+    }
+
+    .header__nav {
+
+        .nav__list {
+            @apply gap-5
+        }
+    }
+}
