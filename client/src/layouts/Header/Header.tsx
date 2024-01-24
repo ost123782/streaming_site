@@ -9,7 +9,7 @@ export default function Header () {
       <nav  className={styles.header__nav}>
         <ul  className={styles.nav__list}>
           <li><Link to="/login">Log in</Link></li>
-          <li><Link to="#">Register</Link></li>
+          <li><Link to="/register">Register</Link></li>
         </ul>
       </nav>
     </header>
