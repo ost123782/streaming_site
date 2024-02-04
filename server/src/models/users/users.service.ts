@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma.service';
 import { Prisma, User } from '@prisma/client';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private mailService: MailService) {}
 
   async getUser(
     {uid}: Prisma.UserWhereUniqueInput
@@ -26,9 +27,15 @@ export class UsersService {
   }
 
   async CreateUser(data: Prisma.UserCreateInput): Promise<User> {
-    return this.prisma.user.create({
-      data,
-    }).catch((err) => {
+    try {
+      const res = await this.prisma.user.create({
+        data
+      })
+
+      await this.mailService.sendUserConfirmation({ name: data.name, email: data.email }, '')
+
+      return res
+    } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
         throw new HttpException({
           status: HttpStatus.BAD_REQUEST,
@@ -43,6 +50,7 @@ export class UsersService {
       }, HttpStatus.INTERNAL_SERVER_ERROR, {
         cause: err
       })
-    })
+    }
   }
+
 }

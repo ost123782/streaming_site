@@ -5,6 +5,7 @@ import { UsersService } from './users.service';
 import { IInputUser } from './user.interface';
 import { createDueDate } from './utils/date.util';
 import { createSessionId } from './utils/session.util';
+import { hashPassword } from './utils/password.util';
 
 @Controller('users')
 export class UsersController {
@@ -30,10 +31,11 @@ export class UsersController {
 
     @Post('/create')
     async signupUser (
-      @Body() userData: IInputUser
+      @Body() { password, ...userData }: IInputUser
     ): Promise<UserModel> {
         return  this.userService.CreateUser({
           ...userData,
+          password: hashPassword(password),
           active_session_due: createDueDate(),
           active_session: createSessionId(),
           permissions: [1],
