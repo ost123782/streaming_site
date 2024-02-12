@@ -11,8 +11,8 @@ import { MailService } from './mail.service';
         host: 'smtp.ethereal.email',
         port: 587,
         auth: {
-          user: 'elisa.davis@ethereal.email',
-          pass: 'HrkVNGRmZpvye8K38k'
+          user: 'makenzie.murray37@ethereal.email',
+          pass: 'Y6wRjQafUsh9A6u8fX'
         }
       },
       defaults: {
